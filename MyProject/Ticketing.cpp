@@ -29,7 +29,29 @@ public:
 
     }
 
-
+    void setMaxSeats(int newMaxSeats) {
+        this->maxSeats = newMaxSeats;
+    }
+    void setNumRows(int newNumRows) {
+        this->numRows = newNumRows;
+    }
+    void setNumZones(int newNumZones) {
+        this->numZones = newNumZones;
+    }
+    void setSeatsPerRow(int newSeatsPerRow) {
+        this->seatsPerRow = newSeatsPerRow;
+    }
+    void setEventName(const char* newEventName) {
+        delete[] this->eventName; //prevent memory leak
+        this->eventName = new char[strlen(newEventName) + 1];
+        strcpy(this->eventName, newEventName);
+    }
+    void setEventDate(const string& newEventDate) {
+        this->eventDate = newEventDate;
+    }
+    void setEventTime(const string& newEventTime) {
+        this->eventTime = newEventTime;
+    }
 
     ~TicketManager() {
 
