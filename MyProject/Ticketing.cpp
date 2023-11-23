@@ -10,22 +10,53 @@ using namespace std;
 enum class MovieType { DOCUMENTARY = 10, ROMANCE = 20, ACTION = 30, DRAMA = 40, COMEDY = 50 };
 
 class Ticket {
+private:
+    const int id;
     int roomNum = 0;
     int rowNum = 0;
     int seatNum = 0;
     string time = "";
-    char* movieName = nullptr;
+    char* movieNames = nullptr;
+    int noMovies = 0;
+
+public:
+    int getRoomNum() {
+        return this->roomNum;
+    }
+    int getRowNum() {
+        return this->rowNum;
+    }
+    int getSeatNum() {
+        return this->seatNum;
+    }
+    string getTime() {
+        return this->time;
+    }
+    char* getMovieName() {
+        char* copyMovieNames = new char[this->noMovies];
+        for (int i = 0; i < this->noMovies; i++) {
+            copyMovieNames[i] = this->movieNames[i];
+        }
+        return copyMovieNames;
+    }
 };
 
 class Theatre {
+private:
     int maxSeats = 0;
     int numRows = 0;
     char* movies = nullptr;
+    int moviesNum = 0;
     char* theatreName = nullptr;
+
+    static int freeSeatsPerRoom;
 };
+int Theatre::freeSeatsPerRoom = 150;
 
 class Movie {
+private:
     int roomNum = 0;
+    bool hasPlace = true;
     char* movieName = nullptr;
     string time = "";
     MovieType type = MovieType::DOCUMENTARY;
