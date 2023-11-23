@@ -7,18 +7,28 @@
 
 using namespace std;
 
-class Ticket {
+enum class MovieType { DOCUMENTARY = 10, ROMANCE = 20, ACTION = 30, DRAMA = 40, COMEDY = 50 };
 
+class Ticket {
+    int roomNum = 0;
+    int rowNum = 0;
+    int seatNum = 0;
+    string time = "";
+    char* movieName = nullptr;
 };
 
 class Theatre {
     int maxSeats = 0;
     int numRows = 0;
+    char* movies = nullptr;
     char* theatreName = nullptr;
 };
 
 class Movie {
-
+    int roomNum = 0;
+    char* movieName = nullptr;
+    string time = "";
+    MovieType type = MovieType::DOCUMENTARY;
 };
 
 
