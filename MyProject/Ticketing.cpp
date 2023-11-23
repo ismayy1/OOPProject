@@ -20,6 +20,7 @@ private:
     int noMovies = 0;
 
 public:
+    //getters
     int getRoomNum() {
         return this->roomNum;
     }
@@ -33,23 +34,69 @@ public:
         return this->time;
     }
     char* getMovieName() {
-        char* copyMovieNames = new char[this->noMovies];
+        /*char* copyMovieNames = new char[this->noMovies];
         for (int i = 0; i < this->noMovies; i++) {
             copyMovieNames[i] = this->movieNames[i];
         }
-        return copyMovieNames;
+        return copyMovieNames;*/
+        return this->movieNames;
+    }
+    int getNoMovies() {
+        return this->noMovies;
+    }
+    //setters
+    void setRoomNum(int newNum) {
+        this->roomNum = newNum;
+    }
+    void setRowNum(int newRowNum) {
+        this->rowNum = newRowNum;
+    }
+    void setSeatNum(int newSeatNum) {
+        this->seatNum = newSeatNum;
+    }
+    void setTime(const string& newTime) {
+        this->time = newTime;
+    }
+    void setMovieNames(const char* newMovieNames) {
+        delete[] this->movieNames;
+        this->movieNames = new char[strlen(newMovieNames) + 1];
+        strcpy(this->movieNames, newMovieNames);
     }
 };
 
 class Theatre {
 private:
-    int maxSeats = 0;
-    int numRows = 0;
+    int noSeats = 0;
+    int noRows = 0;
     char* movies = nullptr;
-    int moviesNum = 0;
+    int noMovies = 0;
     char* theatreName = nullptr;
 
     static int freeSeatsPerRoom;
+public:
+    //getters
+    int getMaxSeats() {
+        return this->noSeats;
+    }
+    int getNumRows() {
+        return this->noRows;
+    }
+    char* getMovies() {
+        return this->movies;
+    }
+    int getNoMovies() {
+        return this->noMovies;
+    }
+    char* getTheatreName() {
+        return this->theatreName;
+    }
+    //setters
+    void setMaxSeats(int newNoSeat) {
+        this->noSeats = newNoSeat;
+    }
+    void setNumRows(int newNoRows) {
+        this->noRows = newNoRows;
+    }
 };
 int Theatre::freeSeatsPerRoom = 150;
 
