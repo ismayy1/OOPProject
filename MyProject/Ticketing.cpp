@@ -7,6 +7,20 @@
 
 using namespace std;
 
+class Ticket {
+
+};
+
+class Theatre {
+    int maxSeats = 0;
+    int numRows = 0;
+    char* theatreName = nullptr;
+};
+
+class Movie {
+
+};
+
 
 class TicketManager {
 private:
