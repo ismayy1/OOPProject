@@ -45,19 +45,19 @@ public:
         return this->noMovies;
     }
     //setters
-    void setRoomNum(int newNum) {
+    int setRoomNum(int newNum) {
         this->roomNum = newNum;
     }
-    void setRowNum(int newRowNum) {
+    int setRowNum(int newRowNum) {
         this->rowNum = newRowNum;
     }
-    void setSeatNum(int newSeatNum) {
+    int setSeatNum(int newSeatNum) {
         this->seatNum = newSeatNum;
     }
-    void setTime(const string& newTime) {
+    string setTime(const string& newTime) {
         this->time = newTime;
     }
-    void setMovieNames(const char* newMovieNames, int newNoMovies) {
+    char* setMovieNames(const char* newMovieNames, int newNoMovies) {
         delete[] this->movieNames;
         this->movieNames = new char[newNoMovies];
         //strcpy(this->movieNames, newMovieNames);
@@ -66,6 +66,22 @@ public:
         }
         this->noMovies = newNoMovies;
     }
+    
+    //constructors
+    Ticket():id(0){}
+    Ticket(int id, int noRoom, int noRow, int noSeat): id(id) {
+        this->roomNum = setRoomNum(noRoom);
+    }
+    Ticket(int id, int noRoom, int noRow, int noSeat, string time, char* movieNames, int noMovieNames) : id(id) {
+        this->roomNum = setRoomNum(noRoom);
+        this->rowNum = setRowNum(noRow);
+        this->seatNum = setSeatNum(noSeat);
+        this->time = setTime(time);
+        this->movieNames = setMovieNames(movieNames, noMovieNames);
+        this->noMovies = noMovieNames;
+    }
+    //copy constructor
+
 };
 
 class Theatre {
