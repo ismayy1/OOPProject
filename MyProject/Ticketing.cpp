@@ -70,18 +70,30 @@ public:
     //constructors
     Ticket():id(0){}
     Ticket(int id, int noRoom, int noRow, int noSeat): id(id) {
-        this->roomNum = setRoomNum(noRoom);
+        this->setRoomNum(noRoom);
     }
     Ticket(int id, int noRoom, int noRow, int noSeat, string time, char* movieNames, int noMovieNames) : id(id) {
-        this->roomNum = setRoomNum(noRoom);
-        this->rowNum = setRowNum(noRow);
-        this->seatNum = setSeatNum(noSeat);
-        this->time = setTime(time);
-        this->movieNames = setMovieNames(movieNames, noMovieNames);
+        this->setRoomNum(noRoom);
+        this->setRowNum(noRow);
+        this->setSeatNum(noSeat);
+        this->setTime(time);
+        this->setMovieNames(movieNames, noMovieNames);
         this->noMovies = noMovieNames;
     }
     //copy constructor
+    Ticket(Ticket& ticket): id(0) {
+        this->setRoomNum(ticket.roomNum);
+        this->setRowNum(ticket.rowNum);
+        this->setSeatNum(ticket.seatNum);
+        this->setTime(ticket.time);
+        this->setMovieNames(ticket.movieNames, ticket.noMovies);
+    }
+    //overloaded operator
+    
+    //destructor
+    ~Ticket() {
 
+    }
 };
 
 class Theatre {
@@ -135,6 +147,32 @@ public:
         this->theatreName = new char[strlen(newTheatreName) + 1];
         strcpy(this->theatreName, newTheatreName);
     }
+    //constructor
+    Theatre() {}
+    Theatre(const char* movies, int noMovies, const char* theatreName) {
+        this->setMovies(movies, noMovies);
+        this->noMovies = noMovies;
+        this->setTheatreName(theatreName);
+    }
+    Theatre(int noSeats, int noRows, int noMovies, const char* movies, const char* theatreName) {
+        this->setMaxSeats(noSeats);
+        this->setNumRows(noRows);
+        this->noMovies = noMovies;
+        this->setMovies(movies, noMovies);
+        this->setTheatreName(theatreName);
+    }
+    //copy constructor
+    Theatre(Theatre& theatre) {
+        this->setMaxSeats(theatre.noSeats);
+        this->setNumRows(theatre.noRows);
+        this->noMovies = theatre.noMovies;
+        this->setMovies(theatre.movies, theatre.noMovies);
+        this->setTheatreName(theatre.theatreName);
+    }
+    //destructor
+    ~Theatre() {
+
+    }
 };
 int Theatre::freeSeatsPerRoom = 150;
 
@@ -182,6 +220,32 @@ public:
     }
     void setMovieType(MovieType t) {
         this->type = t;
+    }
+    //constructor
+    Movie() {}
+    Movie(bool hasFreePlace, const char* movieName, MovieType type) {
+        this->setHasFreePlace(hasFreePlace);
+        this->setMovieName(movieName);
+        this->setMovieType(type);
+    }
+    Movie(int roomNum, bool hasFeePlace, const char* movieName, const string& time, MovieType type) {
+        this->setRooNum(roomNum);
+        this->setHasFreePlace(hasFeePlace);
+        this->setMovieName(movieName);
+        this->setTime(time);
+        this->setMovieType(type);
+    }
+    //copy constructor
+    Movie(Movie& movie) {
+        this->setRooNum(movie.roomNum);
+        this->setHasFreePlace(movie.hasFreePlace);
+        this->setMovieName(movie.movieName);
+        this->setTime(movie.time);
+        this->setMovieType(movie.type);
+    }
+    //destructor
+    ~Movie() {
+
     }
 };
 
