@@ -81,20 +81,35 @@ public:
         this->noMovies = noMovieNames;
     }
     //copy constructor
-    Ticket(Ticket& ticket): id(0) {
+    Ticket(const Ticket& ticket): id(0) {
         this->setRoomNum(ticket.roomNum);
         this->setRowNum(ticket.rowNum);
         this->setSeatNum(ticket.seatNum);
         this->setTime(ticket.time);
         this->setMovieNames(ticket.movieNames, ticket.noMovies);
     }
-    //overloaded operator
-    
+    //overloaded operators
+    Ticket operator=(const Ticket& ticket) {
+        if (&ticket == this) {
+            return;
+        }
+        delete[] this->movieNames;
+        this->setMovieNames(ticket.movieNames, ticket.noMovies);
+        return ticket;
+    }
     //destructor
     ~Ticket() {
 
     }
 };
+
+ostream& operator<<(ostream& console, Ticket& t) {
+    console << endl << "Room number: " << t.getRoomNum();
+    console << endl << "Row number: " << t.getRowNum();
+    console << endl << "Seat Number: " << t.getSeatNum();
+    console << endl << "Movie time: " << t.getTime();
+    return console;
+}
 
 class Theatre {
 private:
