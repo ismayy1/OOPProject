@@ -80,6 +80,15 @@ public:
         this->setMovieNames(movieNames, noMovieNames);
         this->noMovies = noMovieNames;
     }
+
+    void printTicket() {
+        cout << endl << "Room number: " << this->getRoomNum();
+        cout << endl << "Row number: " << this->getRowNum();
+        cout << endl << "Seat number: " << this->getSeatNum();
+        cout << endl << "Time of the movie: " << this->getTime();
+        cout << endl << "Names of the available movies: " << this->getMovieNames();
+        cout << endl << "Number of the available movies:" << this->getNoMovies();
+    }
     //copy constructor
     Ticket(const Ticket& ticket): id(0) {
         this->setRoomNum(ticket.roomNum);
@@ -100,20 +109,6 @@ public:
     ~Ticket() {
 
     }
-
-    //input stream operator
-
-    friend ostream& operator<<(ostream& console, Ticket& t);
-
-    void operator>>(istream& console) {
-        cout << endl << "Room number is: ";
-        console >> this->roomNum;
-        cout << endl << "Row number: ";
-        console >> this->rowNum;
-        cout << endl << "Seat number: ";
-        console >> this->seatNum;
-    }
-
     //math operator
     Ticket operator+(int value) {
         Ticket t = *this;
@@ -138,6 +133,17 @@ public:
         else {
             return false;
         }
+    }
+    //input stream operator
+    friend ostream& operator<<(ostream& console, Ticket& t);
+
+    void operator>>(istream& console) {
+        cout << endl << "Room number is: ";
+        console >> this->roomNum;
+        cout << endl << "Row number: ";
+        console >> this->rowNum;
+        cout << endl << "Seat number: ";
+        console >> this->seatNum;
     }
 };
 
@@ -214,6 +220,14 @@ public:
         this->setMovies(movies, noMovies);
         this->setTheatreName(theatreName);
     }
+
+    void printTheatre() {
+        cout << endl << "Number of seats: " << this->getMaxSeats();
+        cout << endl << "Number of rows: " << this->getNumRows();
+        cout << endl << "Number of movies: " << this->getNoMovies();
+        cout << endl << "Available movie names: " << this->getMovies();
+        cout << endl << "Theatre name: " << this->getTheatreName();
+    }
     //copy constructor
     Theatre(Theatre& theatre) {
         this->setMaxSeats(theatre.noSeats);
@@ -222,12 +236,57 @@ public:
         this->setMovies(theatre.movies, theatre.noMovies);
         this->setTheatreName(theatre.theatreName);
     }
+    //math opeartors
+    Theatre operator+(int value) {
+        Theatre t = *this;
+        t.noMovies += value;
+        return t;
+    }
+    bool operator!() {
+        return this->freeSeatsPerRoom >= 0;
+    }
+    bool operator>(int value) {
+        if (this->noSeats > value) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    bool operator==(int value) {
+        if (this->noSeats >= value) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
     //destructor
     ~Theatre() {
 
     }
+    //<< & >> operators
+    friend void operator<<(ostream& console, Theatre& t);
+
+    void operator>>(istream& console) {
+        cout << endl << "Number of seats: ";
+        console >> this->noSeats;
+        cout << endl << "Number of Rows: ";
+        console >> this->noRows;
+        cout << endl << "Number of movies: ";
+        console >> this->noMovies;
+    }
 };
 int Theatre::freeSeatsPerRoom = 150;
+
+void operator<<(ostream& console, Theatre& t) {
+    console << endl << "Number of seats: " << t.getMaxSeats();
+    console << endl << "Number of Rows: " << t.getNumRows();
+    console << endl << "Number of movies: " << t.getNoMovies();
+    console << endl << "Available Movies: " << t.getMovies();
+    console << endl << "Theatre name: " << t.getTheatreName();
+}
 
 class Movie {
 private:
@@ -281,12 +340,20 @@ public:
         this->setMovieName(movieName);
         this->setMovieType(type);
     }
-    Movie(int roomNum, bool hasFeePlace, const char* movieName, const string& time, MovieType type) {
+    Movie(int roomNum, bool hasFreePlace, const char* movieName, const string& time, MovieType type) {
         this->setRooNum(roomNum);
-        this->setHasFreePlace(hasFeePlace);
+        this->setHasFreePlace(hasFreePlace);
         this->setMovieName(movieName);
         this->setTime(time);
         this->setMovieType(type);
+    }
+
+    void printMovie() {
+        cout << endl << "Room number: " << this->roomNum;
+        cout << endl << "Free place is available: " << this->hasFreePlace;
+        cout << endl << "Movie name: " << this->movieName;
+        cout << endl << "Time of the movie: " << this->time;
+        cout << endl << "Type of the movie: " << this->getTime();
     }
     //copy constructor
     Movie(Movie& movie) {
@@ -296,11 +363,61 @@ public:
         this->setTime(movie.time);
         this->setMovieType(movie.type);
     }
+    //math operators
+    void operator=(const Movie& value) {
+        if (this == &value) {
+            return;
+        }
+        this->setRooNum(value.roomNum);
+        this->setTime(value.time);
+        this->setMovieName(value.movieName);
+    }
+    Movie operator+(int val) {
+        Movie res = *this;
+        res.roomNum += val;
+        return res;
+    }
+    bool operator!() {
+        return this->hasFreePlace;
+    }
+    bool operator>(int val) {
+        if (this->roomNum != val) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+    bool operator==(Movie m) {
+        if (this->roomNum == m.roomNum && this->movieName == m.movieName) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
     //destructor
     ~Movie() {
 
     }
+
+    //<< & >> operators
+    friend void operator<<(ostream& console, Movie& m);
+
+    void operator>>(istream& console) {
+        cout << endl << "Room nr: ";
+        console >> this->roomNum;
+        cout << endl << "Movie name: ";
+        console >> this->movieName;
+    }
 };
+
+void operator<<(ostream& console, Movie& m) {
+    console << endl << "Room nr: " << m.getRoomNum();
+    console << endl << "Movie name: " << m.getMovieName();
+    console << endl << "Time of the movie: " << m.getTime();
+}
 
 
 int main() {
