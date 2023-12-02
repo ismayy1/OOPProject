@@ -131,6 +131,14 @@ public:
             return false;
         }
     }
+    bool operator==(int id) {
+        if (this->id == id) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 };
 
 ostream& operator<<(ostream& console, Ticket& t) {
